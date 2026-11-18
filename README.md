@@ -9,18 +9,94 @@ The films are made with [Remotion](https://www.remotion.dev) (React, rendered fr
 line-drawn characters with expressions, rebuilt app screens, original music and sound effects, in 9:16 for Reels
 and Shorts and 16:9 for YouTube and decks.
 
-## Install
+## Setup, step by step
 
-You need Claude Code, Node 20 or newer, pnpm (or npm), and ffmpeg with its analysis filters
-(`brew install ffmpeg` on a Mac).
+About 15 minutes the first time. Steps 1 to 5 are once per laptop; step 6 is once per video.
+
+### 1. Get access
+
+Ask the repo owner to add you as a collaborator on this private repo. Accept the invite in GitHub, then check:
 
 ```bash
-git clone <this repo> ~/video-studio
-claude plugin marketplace add ~/video-studio
+gh repo view P09s/video-studio      # prints the README if you have access
+```
+
+### 2. Install the tools
+
+| Tool | Why | Install (Mac) | Check |
+|---|---|---|---|
+| Claude Code | Runs the `/launch-video` skill | [claude.com/claude-code](https://claude.com/claude-code) | `claude --version` |
+| Node 20 or newer | Builds and renders the films | `brew install node` | `node -v` |
+| pnpm (or npm) | Installs each video project | `npm install -g pnpm` | `pnpm -v` |
+| ffmpeg with analysis filters | Loudness mastering and the automatic review | `brew install ffmpeg` | `ffmpeg -filters \| grep -E "scdet\|ebur128"` prints two lines |
+| git with GitHub access | Installs the plugin from this private repo | `gh auth login` | `gh auth status` |
+
+### 3. Install the plugin
+
+```bash
+claude plugin marketplace add P09s/video-studio
 claude plugin install video-studio@video-studio
 ```
 
-Start a new Claude Code session, then type `/launch-video` (or ask for "a 30-second reel for <product>").
+Start a new Claude Code session. `/launch-video` is now in the `/` menu.
+
+### 4. Set up your keys (optional)
+
+Only one key exists, and you need it only to make new music. Everything else is free and needs no key.
+
+| Variable | Needed for | Where to get it | Cost |
+|---|---|---|---|
+| `OPENROUTER_API_KEY` | New background music (`scripts/music.mjs`, Google Lyria) | [openrouter.ai/keys](https://openrouter.ai/keys) | Billed to your key; set a monthly credit limit on the OpenRouter keys page |
+| `FFMPEG`, `FFPROBE` | Only if the ffmpeg on your PATH lacks the analysis filters | Your full ffmpeg path, for example `/opt/homebrew/bin/ffmpeg` | Free |
+
+Each person uses their own key. Never share a key in Slack, a commit, a screenshot or this repo.
+
+Set it one of two ways:
+
+- **For every video (recommended):** add `export OPENROUTER_API_KEY=<your key>` to `~/.zshrc`, then open a new terminal.
+- **For one video only:** in that video's folder, `cp .env.example .env` and fill in `.env`. It is git-ignored.
+
+Check it is set, without printing it:
+
+```bash
+echo ${OPENROUTER_API_KEY:+set}      # prints "set"
+```
+
+No key? Bring a licensed music track instead; Claude uses it in place of generated music.
+
+### 5. Install the screenshot browser (optional)
+
+Only if Claude should screenshot a live site you sign in to. Run once inside your first video project:
+
+```bash
+npx playwright install chromium
+```
+
+### 6. Make a video
+
+Open Claude Code in an empty folder (or anywhere) and type `/launch-video`, or ask for "a 30-second reel for
+<product>". Claude makes the video project with `bin/new-video <folder>`, installs it, and walks you through the
+stages below. Keep one folder per product, for example `~/videos/<product>-video`, and never inside a company
+code repo.
+
+## Updating
+
+```bash
+claude plugin marketplace update video-studio
+claude plugin update video-studio@video-studio
+```
+
+Existing video projects keep their own copy of the template; only new projects get template changes.
+
+## Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| `/launch-video` not in the menu | Start a new Claude Code session; run `claude plugin list` to check it is installed |
+| `marketplace add` fails with "not found" or "permission denied" | Accept the GitHub invite; run `gh auth login` |
+| "No OPENROUTER_API_KEY" | Do step 4, then open a new terminal |
+| Review fails on `scdet` or `ebur128` | Your ffmpeg lacks the filters: `brew install ffmpeg`, or set `FFMPEG` and `FFPROBE` |
+| Render is slow or the laptop freezes | One render at a time; close the Remotion studio while rendering |
 
 ## What happens
 
@@ -47,13 +123,13 @@ Start a new Claude Code session, then type `/launch-video` (or ask for "a 30-sec
 
 - **Remotion** is free for individuals and companies of up to 3 people. A larger company needs a
   [Remotion company licence](https://www.remotion.dev/license) before it publishes videos made with it.
-- **Music** with `scripts/music.mjs` uses your own OpenRouter key (`OPENROUTER_API_KEY`) and is billed to it.
+- **Music** with `scripts/music.mjs` uses your own OpenRouter key (`OPENROUTER_API_KEY`, setup step 4) and is billed to it.
   Generated tracks carry Google's SynthID watermark.
 - **Sound effects** are Kenney's CC0 packs and two made with ffmpeg (`template/public/audio/LICENSES.md`).
 - **Characters** are Open Peeps by Pablo Stanley (CC0), through `react-peeps` (MIT).
 
 ## Safety
 
-Claude never types your passwords: you sign in to a site yourself. Keys come only from your environment. Any data
+Claude never types your passwords: you sign in to a site yourself. Keys come only from your shell or a git-ignored `.env`, and are never printed. Any data
 on screen is invented. New packages, downloads and paid services need your yes. Publishing a video is always your
 action.

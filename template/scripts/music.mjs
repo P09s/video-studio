@@ -1,11 +1,12 @@
 // Original background music with Google's Lyria 3 through OpenRouter.
 //
-//   OPENROUTER_API_KEY=... node scripts/music.mjs <out name> "<prompt>" [model]
+//   node scripts/music.mjs <out name> "<prompt>" [model]
 //
-// The key comes from the environment only and is never printed or written anywhere. Writes
+// The key (OPENROUTER_API_KEY) comes from the shell or the project's git-ignored .env (see .env.example). It is never printed or written anywhere. Writes
 // public/audio/music/<out name>.<ext>. Lyria output carries Google's SynthID watermark: list each track in
 // public/audio/LICENSES.md. In the prompt always say "Instrumental only, no vocals, no spoken words, no DJ tags",
 // the BPM, the length, and where the build and the drop go.
+import './env.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -18,7 +19,7 @@ if (!name || !prompt) {
 }
 const key = process.env.OPENROUTER_API_KEY;
 if (!key) {
-  console.error('Set OPENROUTER_API_KEY in your shell first (it is never printed).');
+  console.error('No OPENROUTER_API_KEY. Put it in .env (copy .env.example) or export it in your shell. It is never printed.');
   process.exit(2);
 }
 

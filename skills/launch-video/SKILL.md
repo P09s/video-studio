@@ -122,15 +122,16 @@ Ask: Approve / Changes. If the project is a git repo, commit locally; never push
 | Pick a look for a person | Edit `src/cast/CastTest.tsx`, render the `CastTest` still |
 | Save a sign-in for screenshots | `node scripts/capture.mjs login <url>` (the user signs in in the window) |
 | Screenshot pages | `node scripts/capture.mjs shots shots.json` |
-| New music | `node scripts/music.mjs <name> "<prompt>"` (needs `OPENROUTER_API_KEY` in the shell) |
+| New music | `node scripts/music.mjs <name> "<prompt>"` (needs `OPENROUTER_API_KEY` in the shell or `.env`) |
 
 The shell may reset its folder between calls: `cd` with an absolute path each time. Render on a laptop at the
 template's concurrency (4); one render at a time.
 
 ## Safety
 
-- Keys come only from the user's environment (`OPENROUTER_API_KEY`). Never print, copy or read key files, and
-  never borrow another project's credentials.
+- Keys come only from the user's shell or the video project's git-ignored `.env` (`OPENROUTER_API_KEY`, see
+  `.env.example`). The scripts load `.env` themselves: never print, copy or read `.env` or key files, and never
+  borrow another project's credentials. No key → ask the user to set one (README step 4) or bring a licensed track.
 - The user signs in to any site themselves; you never type a password. Use staging or demo accounts.
 - New packages, downloads and paid services need the user's yes first.
 - Remotion is free for individuals and companies of up to 3 people; a larger company needs a Remotion company

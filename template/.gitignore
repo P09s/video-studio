@@ -2,3 +2,4 @@ node_modules/
 out/
 .auth/
 .DS_Store
+.env

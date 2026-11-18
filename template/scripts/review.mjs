@@ -12,6 +12,7 @@
 //   - loudness: -14 LUFS integrated (+-1), true peak at or under -1 dBTP
 // Writes out/review/<name>/: report.md, report.json, and sheet.png (one frame a second, with the safe area drawn
 // on it: title-safe 90% for 16:9, the Reels/Shorts zone for 9:16). Exits 1 if any check fails.
+import './env.mjs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
