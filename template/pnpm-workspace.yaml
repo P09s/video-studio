@@ -1,0 +1,7 @@
+# Its own workspace, kept apart from any product's build.
+# A package version must be at least 7 days old before pnpm resolves it.
+minimumReleaseAge: 10080
+
+# Install scripts that may run: esbuild's binary check (Remotion's bundler).
+allowBuilds:
+  esbuild: true

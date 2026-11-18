@@ -1,0 +1,29 @@
+{
+  "name": "launch-video",
+  "private": true,
+  "type": "module",
+  "description": "A launch video made from code with the video-studio plugin's /launch-video skill (Remotion).",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "still": "remotion still src/index.ts",
+    "render": "remotion render src/index.ts",
+    "master": "scripts/master.sh",
+    "review": "node scripts/review.mjs",
+    "music": "node scripts/music.mjs",
+    "capture": "node scripts/capture.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.542",
+    "@remotion/google-fonts": "4.0.542",
+    "lucide-react": "0.542.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "react-peeps": "0.1.10",
+    "remotion": "4.0.542"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "playwright": "1.55.1",
+    "typescript": "5.9.3"
+  }
+}

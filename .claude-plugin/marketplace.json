@@ -1,0 +1,14 @@
+{
+  "name": "video-studio",
+  "owner": { "name": "Parag Sharma" },
+  "metadata": { "description": "Launch videos made from code, for any product" },
+  "plugins": [
+    {
+      "name": "video-studio",
+      "source": "./",
+      "description": "/launch-video: a guided launch-video maker (interview, storyboard, Remotion build, automatic review)",
+      "version": "0.1.0",
+      "category": "productivity"
+    }
+  ]
+}

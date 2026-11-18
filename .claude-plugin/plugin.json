@@ -1,0 +1,8 @@
+{
+  "name": "video-studio",
+  "version": "0.1.0",
+  "description": "Launch and promo videos made from code: /launch-video interviews you with multiple-choice questions, writes a storyboard for approval, builds the film in Remotion with motion graphics, characters, music and sound, renders 9:16 and 16:9, and checks it with automatic tests and an independent reviewer before you watch it.",
+  "author": { "name": "Parag Sharma" },
+  "license": "UNLICENSED",
+  "keywords": ["video", "remotion", "launch", "reels", "shorts", "motion-graphics"]
+}

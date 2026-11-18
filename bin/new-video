@@ -1,0 +1,19 @@
+#!/bin/sh
+# Starts a launch-video project from the studio's template.
+#   new-video <folder>      the folder must be new or empty
+# Then: cd <folder> && pnpm install (or npm install), edit src/brand.ts, and run `npx remotion studio src/index.ts`.
+set -e
+here="$(cd "$(dirname "$0")/.." && pwd)"
+dest="$1"
+if [ -z "$dest" ]; then
+  echo "Usage: new-video <folder>" >&2
+  exit 2
+fi
+if [ -d "$dest" ] && [ -n "$(ls -A "$dest" 2>/dev/null)" ]; then
+  echo "$dest is not empty. Pick a new folder." >&2
+  exit 1
+fi
+mkdir -p "$dest"
+cp -R "$here/template/." "$dest/"
+rm -rf "$dest/node_modules" "$dest/out" "$dest/.auth"
+echo "New video project in $dest"
