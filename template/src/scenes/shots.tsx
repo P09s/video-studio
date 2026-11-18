@@ -14,16 +14,18 @@ export const smooth = { ...clamp, easing: (t: number) => (1 - Math.cos(Math.PI *
 /** Frames each shot slides in over the one before. Start each shot's Sequence PUSH frames before its cut. */
 export const PUSH = 8;
 
-/** A shot that slides in over the previous one, then drifts slowly toward the camera while it plays. */
-export function Shot({ children, from }: { children: ReactNode; from: 'right' | 'bottom' | 'none' }) {
+/** A shot that slides in over the previous one (or fades in from slightly larger, `fade`), then drifts slowly
+ * toward the camera while it plays. */
+export function Shot({ children, from }: { children: ReactNode; from: 'right' | 'bottom' | 'none' | 'fade' }) {
   const frame = useCurrentFrame();
   const { durationInFrames, width, height } = useVideoConfig();
   const p = ease(interpolate(frame, [0, PUSH], [0, 1], clamp));
   const x = from === 'right' ? (1 - p) * width : 0;
   const y = from === 'bottom' ? (1 - p) * height : 0;
-  const zoom = 1 + 0.045 * interpolate(frame, [0, durationInFrames], [0, 1], clamp);
+  const fade = from === 'fade' ? p : 1;
+  const zoom = (from === 'fade' ? 1.08 - 0.08 * p : 1) + 0.045 * interpolate(frame, [0, durationInFrames], [0, 1], clamp);
   return (
-    <AbsoluteFill style={{ transform: `translate(${x}px, ${y}px)`, boxShadow: from === 'none' ? undefined : '-30px 0 80px rgba(0,0,0,0.35)', overflow: 'hidden' }}>
+    <AbsoluteFill style={{ transform: `translate(${x}px, ${y}px)`, opacity: fade, boxShadow: from === 'none' || from === 'fade' ? undefined : '-30px 0 80px rgba(0,0,0,0.35)', overflow: 'hidden' }}>
       <AbsoluteFill style={{ transform: `scale(${zoom})` }}>{children}</AbsoluteFill>
     </AbsoluteFill>
   );

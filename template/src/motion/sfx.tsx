@@ -30,6 +30,14 @@ export const SOUNDS = {
   // Made here with ffmpeg (public/audio/LICENSES.md): a heart-monitor beep (1000 Hz) and a marker stroke.
   beep: { file: 'monitor_beep', volume: 0.9 },
   marker: { file: 'marker_stroke', volume: 0.35 },
+  // Made here with ffmpeg as pure tones, for motions the packs have no sound for (public/audio/LICENSES.md).
+  stamp: { file: 'stamp', volume: 0.85 },
+  sweep: { file: 'sweep_up', volume: 0.55 },
+  sonar: { file: 'sonar', volume: 0.5 },
+  ticks: { file: 'tick_roll', volume: 0.45 },
+  chime: { file: 'chime', volume: 0.5 },
+  sparkle: { file: 'sparkle', volume: 0.6 },
+  check: { file: 'check', volume: 0.5 },
 } as const;
 
 export type Sound = keyof typeof SOUNDS;

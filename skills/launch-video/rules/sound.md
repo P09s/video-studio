@@ -20,7 +20,14 @@ You cannot hear. Choose and place sounds by measurement and by what is on screen
 - Every sound marks something on screen, on its frame (`Cue at=`). `lead` starts a late-peaking sound early.
 - No repeats that sound identical: give repeated sounds a `pitch` (semitones). Three question marks rise
   do-mi-so (0, 4, 7); cards climb a scale; a second phone ring is higher; clock ticks alternate.
-- At most three sounds in any two seconds.
+- At most three sounds in any two seconds. Sounds that overlap blur into one: four pops within nine frames were
+  heard as one, so give a burst of items one sound.
+- Never pitch a sound shorter than about 0.05 s (the `key` clicks): played at another rate it drops out of the
+  render entirely. Vary short clicks by using a different file.
+- Put a wipe's or transition's sound where the movement starts, not where it ends; ending sounds feel late.
+- Check the sounds with an effects-only render (`--props='{"music":null}'`, `--codec=wav`) and
+  `silencedetect=noise=-45dB:d=0.03`: every cue should start on its frame. A cue missing from that list either
+  overlaps the tail of the one before (check the level just before and at its frame) or did not play.
 - No noise whooshes or swishes: generated noise sounded "like rubbing a broom on the floor".
 - Fitted sounds, by what they mark:
 
