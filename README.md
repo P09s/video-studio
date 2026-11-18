@@ -11,15 +11,12 @@ and Shorts and 16:9 for YouTube and decks.
 
 ## Setup, step by step
 
-About 15 minutes the first time. Steps 1 to 5 are once per laptop; step 6 is once per video.
+About 15 minutes the first time. Steps 2 to 5 are once per laptop; step 6 is once per video.
 
-### 1. Get access
+### 1. Get the repo
 
-Ask the repo owner to add you as a collaborator on this private repo. Accept the invite in GitHub, then check:
-
-```bash
-gh repo view P09s/video-studio      # prints the README if you have access
-```
+The repo is public: [github.com/P09s/video-studio](https://github.com/P09s/video-studio). You need no invite. The
+plugin install in step 3 fetches it for you; clone it only if you want to change the skill or the template.
 
 ### 2. Install the tools
 
@@ -29,7 +26,7 @@ gh repo view P09s/video-studio      # prints the README if you have access
 | Node 20 or newer | Builds and renders the films | `brew install node` | `node -v` |
 | pnpm (or npm) | Installs each video project | `npm install -g pnpm` | `pnpm -v` |
 | ffmpeg with analysis filters | Loudness mastering and the automatic review | `brew install ffmpeg` | `ffmpeg -filters \| grep -E "scdet\|ebur128"` prints two lines |
-| git with GitHub access | Installs the plugin from this private repo | `gh auth login` | `gh auth status` |
+| git | Installs the plugin from GitHub | `brew install git` | `git --version` |
 
 ### 3. Install the plugin
 
@@ -93,7 +90,7 @@ Existing video projects keep their own copy of the template; only new projects g
 | Problem | Fix |
 |---|---|
 | `/launch-video` not in the menu | Start a new Claude Code session; run `claude plugin list` to check it is installed |
-| `marketplace add` fails with "not found" or "permission denied" | Accept the GitHub invite; run `gh auth login` |
+| `marketplace add` fails | Check the name is `P09s/video-studio` and that `git` can reach github.com |
 | "No OPENROUTER_API_KEY" | Do step 4, then open a new terminal |
 | Review fails on `scdet` or `ebur128` | Your ffmpeg lacks the filters: `brew install ffmpeg`, or set `FFMPEG` and `FFPROBE` |
 | Render is slow or the laptop freezes | One render at a time; close the Remotion studio while rendering |
