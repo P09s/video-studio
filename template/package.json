@@ -10,6 +10,7 @@
     "master": "scripts/master.sh",
     "review": "node scripts/review.mjs",
     "music": "node scripts/music.mjs",
+    "voice": "node scripts/voice.mjs",
     "capture": "node scripts/capture.mjs"
   },
   "dependencies": {

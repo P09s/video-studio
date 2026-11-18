@@ -88,7 +88,8 @@ character / Change the pacing.
   Stage, Rise, faces), `src/scenes/props.tsx` (Wipe, Callout, CtaPill, FeatureCard, Browser, Logo, Mascot,
   Bubble, Orb, Snap and props), `src/cast/` (people). See [motion](rules/motion.md).
 - Music: make a track ([sound](rules/sound.md)), measure where its drop is, and put the reveal on it.
-- Voice (if chosen): English text-to-speech, or a provider the user approves. A native speaker checks any
+- Voice (if chosen): write `voices/<name>.voice.json`, run `scripts/voice.mjs`, and time the shots from the
+  line lengths ([sound](rules/sound.md), Voice). Needs `OPENROUTER_API_KEY`. A native speaker checks any
   non-English words before the video is shared.
 
 ### 6. Render and review (loop until clean, at most three rounds)
@@ -123,6 +124,7 @@ Ask: Approve / Changes. If the project is a git repo, commit locally; never push
 | Save a sign-in for screenshots | `node scripts/capture.mjs login <url>` (the user signs in in the window) |
 | Screenshot pages | `node scripts/capture.mjs shots shots.json` |
 | New music | `node scripts/music.mjs <name> "<prompt>"` (needs `OPENROUTER_API_KEY` in the shell or `.env`) |
+| Voiceover | `node scripts/voice.mjs voices/<name>.voice.json` (same key) |
 
 The shell may reset its folder between calls: `cd` with an absolute path each time. Render on a laptop at the
 template's concurrency (4); one render at a time.

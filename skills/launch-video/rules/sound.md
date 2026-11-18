@@ -54,6 +54,17 @@ checks -14 +-1 LUFS and true peak at or under -1 dBFS.
 
 ## Voice
 
-The first films used Kokoro for English (local, free) and Gemini 3.8 Flash TTS (voice Kore, through OpenRouter)
-for Hindi and Punjabi, which sounded natural in both. The template has no voice script yet: add one only with the
-user's yes for the provider. Space lines so none overlaps; duck the music under speech.
+`scripts/voice.mjs` makes voiceover lines with Gemini text-to-speech through OpenRouter (the same key as the music).
+The first films used it, voice Kore, for Hindi and Punjabi, and it sounded natural in both; English works too.
+
+1. Write `voices/<name>.voice.json`: `voice`, `instructions` (language, accent, tone, pace), and one line per beat,
+   each a short sentence (copy `voices/example.voice.json`). One file per language.
+2. `node scripts/voice.mjs voices/<name>.voice.json` writes `public/audio/voice/<name>/<id>.wav` and `lengths.json`.
+   Re-running makes only the lines that changed.
+3. In the video, place lines with `<VoiceLine set id at>` and time each shot from `framesOf(lengths, id, fps)`
+   (`src/motion/voice.tsx`): the voice sets the pace, not the other way round. A longer language (Punjabi runs
+   longer than English) gets longer beats from its own lengths file.
+4. Leave at least 6 frames between lines; never overlap two. Duck the music under speech with `musicVolumeUnder`
+   (0.4 down to about 0.16).
+5. Captions say the same words as the voice, or less. A native speaker checks every non-English line before the
+   video is shared.

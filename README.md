@@ -6,7 +6,8 @@ multiple-choice questions. It then studies the product, writes a storyboard for 
 renders it, and checks it before you watch it.
 
 The films are made with [Remotion](https://www.remotion.dev) (React, rendered frame by frame): motion graphics,
-line-drawn characters with expressions, rebuilt app screens, original music and sound effects, in 9:16 for Reels
+line-drawn characters with expressions, rebuilt app screens, original music, sound effects and an optional
+voiceover in English, Hindi, Punjabi and other languages, in 9:16 for Reels
 and Shorts and 16:9 for YouTube and decks.
 
 ## Setup, step by step
@@ -39,11 +40,11 @@ Start a new Claude Code session. `/launch-video` is now in the `/` menu.
 
 ### 4. Set up your keys (optional)
 
-Only one key exists, and you need it only to make new music. Everything else is free and needs no key.
+Only one key exists, and you need it only to make new music or a voiceover. Everything else is free and needs no key.
 
 | Variable | Needed for | Where to get it | Cost |
 |---|---|---|---|
-| `OPENROUTER_API_KEY` | New background music (`scripts/music.mjs`, Google Lyria) | [openrouter.ai/keys](https://openrouter.ai/keys) | Billed to your key; set a monthly credit limit on the OpenRouter keys page |
+| `OPENROUTER_API_KEY` | New background music (`scripts/music.mjs`, Google Lyria) and voiceover in English, Hindi, Punjabi and more (`scripts/voice.mjs`, Gemini text-to-speech) | [openrouter.ai/keys](https://openrouter.ai/keys) | Billed to your key; set a monthly credit limit on the OpenRouter keys page |
 | `FFMPEG`, `FFPROBE` | Only if the ffmpeg on your PATH lacks the analysis filters | Your full ffmpeg path, for example `/opt/homebrew/bin/ffmpeg` | Free |
 
 Each person uses their own key. Never share a key in Slack, a commit, a screenshot or this repo.
@@ -59,7 +60,7 @@ Check it is set, without printing it:
 echo ${OPENROUTER_API_KEY:+set}      # prints "set"
 ```
 
-No key? Bring a licensed music track instead; Claude uses it in place of generated music.
+No key? Bring a licensed music track instead, and make text-and-music videos with no voice (most social video plays muted anyway).
 
 ### 5. Install the screenshot browser (optional)
 
@@ -113,14 +114,15 @@ Existing video projects keep their own copy of the template; only new projects g
 |---|---|
 | `skills/launch-video/` | The skill: the stages, and the rules learned from the first films (story, layout, motion, sound, cast, screens, review) |
 | `template/` | The Remotion project every video starts from: `src/brand.ts` (the brand pack), the motion kit, scene pieces, the cast, sound effects, and the scripts below |
-| `template/scripts/` | `review.mjs` (automatic checks and a frame sheet), `master.sh` (loudness for social apps), `music.mjs` (music with Lyria through OpenRouter), `capture.mjs` (screenshots of a site you sign in to) |
+| `template/scripts/` | `review.mjs` (automatic checks and a frame sheet), `master.sh` (loudness for social apps), `music.mjs` (music with Lyria through OpenRouter), `voice.mjs` (voiceover with Gemini text-to-speech), `capture.mjs` (screenshots of a site you sign in to) |
 | `bin/new-video` | Makes a new video project from the template |
 
 ## Costs and licences
 
 - **Remotion** is free for individuals and companies of up to 3 people. A larger company needs a
   [Remotion company licence](https://www.remotion.dev/license) before it publishes videos made with it.
-- **Music** with `scripts/music.mjs` uses your own OpenRouter key (`OPENROUTER_API_KEY`, setup step 4) and is billed to it.
+- **Music and voice** with `scripts/music.mjs` and `scripts/voice.mjs` use your own OpenRouter key
+  (`OPENROUTER_API_KEY`, setup step 4) and are billed to it.
   Generated tracks carry Google's SynthID watermark.
 - **Sound effects** are Kenney's CC0 packs and two made with ffmpeg (`template/public/audio/LICENSES.md`).
 - **Characters** are Open Peeps by Pablo Stanley (CC0), through `react-peeps` (MIT).

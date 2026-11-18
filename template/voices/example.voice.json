@@ -1,0 +1,10 @@
+{
+  "model": "google/gemini-3.8-flash-tts",
+  "voice": "Kore",
+  "instructions": "Speak in natural English with an Indian accent, warm, friendly and confident, at a moderate pace, like a product launch voiceover.",
+  "lines": [
+    { "id": "hook", "text": "Your whole team, finally on one screen." },
+    { "id": "demo", "text": "Ask a question, and the answer is ready before your coffee." },
+    { "id": "outro", "text": "Try it today." }
+  ]
+}
