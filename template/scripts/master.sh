@@ -6,6 +6,6 @@ set -e
 in="$1"
 out="${in%.mp4}-master.mp4"
 # loudnorm alone can overshoot its peak target, and AAC encoding adds inter-sample peaks, so a limiter at -2 dB
-# follows it (scripts/review.mjs measures the true peak of the result).
-ffmpeg -v error -y -i "$in" -af "loudnorm=I=-14:TP=-1.5:LRA=11,alimiter=limit=0.79:level=false" -c:v copy -c:a aac -b:a 192k "$out"
+# follows it at -4 dB (scripts/review.mjs measures the true peak of the result; -2 dB still reached 0 dB on a dense mix).
+ffmpeg -v error -y -i "$in" -af "loudnorm=I=-14:TP=-2:LRA=11,alimiter=limit=0.63:level=false" -c:v copy -c:a aac -b:a 192k "$out"
 echo "$out"
